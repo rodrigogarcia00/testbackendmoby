@@ -1,5 +1,6 @@
 package com.mobytestbackend.service;
 
+import com.mobytestbackend.exception.TechnologyNotFoundException;
 import com.mobytestbackend.models.entity.Technology;
 import com.mobytestbackend.models.views.TechnologyDto;
 
@@ -11,9 +12,9 @@ public interface TechnologyService {
 
     void update(Long id, TechnologyDto technologyDto);
 
-    Boolean deleteById(Long id);
+    void deleteById(Long id);
 
-    Technology findById(Long id);
+    Technology findById(Long id) throws TechnologyNotFoundException;
 
     List<Technology> findAll();
 }

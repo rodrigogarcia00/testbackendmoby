@@ -1,6 +1,5 @@
 package com.mobytestbackend.models.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.mobytestbackend.models.enums.DocumentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,10 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -43,9 +40,4 @@ public class Candidate {
 
     @Column(name = "birthdate")
     private Date birthdate;
-
-    /*@OneToMany(mappedBy = "candidate")
-    //@JoinColumn(name = "technology_list", referencedColumnName = "id")
-    @JsonBackReference
-    private List<CandidateByTechnology> technologyList;*/
 }

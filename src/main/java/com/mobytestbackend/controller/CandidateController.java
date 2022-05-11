@@ -1,7 +1,6 @@
 package com.mobytestbackend.controller;
 
 import com.mobytestbackend.models.entity.Candidate;
-import com.mobytestbackend.models.entity.CandidateByTechnology;
 import com.mobytestbackend.models.views.CandidateDto;
 import com.mobytestbackend.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +24,12 @@ public class CandidateController {
 
     @PostMapping(value = "/save")
     public ResponseEntity<Boolean> saveCandidate(@RequestBody CandidateDto candidateDto) {
-
         return new ResponseEntity<>(candidateService.save(candidateDto), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<Boolean> deleteCandidate(@PathVariable Long id) {
-
-        return new ResponseEntity<>(candidateService.deleteById(id), HttpStatus.OK);
+    @DeleteMapping(value = "/{id}")
+    public void deleteCandidate(@PathVariable Long id) {
+        candidateService.deleteById(id);
     }
 
     @GetMapping(value = "/{id}")
@@ -41,10 +38,9 @@ public class CandidateController {
     }
 
     @GetMapping(value = "/findAll")
-    public ResponseEntity<List<Candidate>> findAll(){
-        return new ResponseEntity<>(candidateService.findAll(),HttpStatus.OK);
+    public ResponseEntity<List<Candidate>> findAll() {
+        return new ResponseEntity<>(candidateService.findAll(), HttpStatus.OK);
     }
-
 
 
 }

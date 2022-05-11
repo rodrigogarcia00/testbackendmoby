@@ -1,5 +1,6 @@
 package com.mobytestbackend.controller;
 
+import com.mobytestbackend.exception.TechnologyNotFoundException;
 import com.mobytestbackend.models.entity.Technology;
 import com.mobytestbackend.models.views.TechnologyDto;
 import com.mobytestbackend.service.TechnologyService;
@@ -23,22 +24,22 @@ public class TechnologyController {
     TechnologyService technologyService;
 
     @PostMapping(value = "/save")
-    public ResponseEntity<Boolean>saveTechnology(@RequestBody TechnologyDto technologyDto){
+    public ResponseEntity<Boolean> saveTechnology(@RequestBody TechnologyDto technologyDto) {
         return new ResponseEntity<>(technologyService.save(technologyDto), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<Boolean>deleteTechnology(@PathVariable Long id){
-        return new ResponseEntity<>(technologyService.deleteById(id),HttpStatus.OK);
+    @DeleteMapping(value = "/{id}")
+    public void deleteTechnology(@PathVariable Long id) {
+        technologyService.deleteById(id);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Technology>getTechnologyById(@PathVariable Long id){
-        return new ResponseEntity<>(technologyService.findById(id),HttpStatus.OK);
+    public ResponseEntity<Technology> getTechnologyById(@PathVariable Long id) throws TechnologyNotFoundException {
+        return new ResponseEntity<>(technologyService.findById(id), HttpStatus.OK);
     }
 
     @GetMapping(value = "/findAll")
-    public ResponseEntity<List<Technology>> findAll(){
-        return new ResponseEntity<>(technologyService.findAll(),HttpStatus.OK);
+    public ResponseEntity<List<Technology>> findAll() {
+        return new ResponseEntity<>(technologyService.findAll(), HttpStatus.OK);
     }
 }

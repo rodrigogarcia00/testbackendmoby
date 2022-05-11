@@ -1,5 +1,7 @@
 package com.mobytestbackend.service;
 
+import com.mobytestbackend.exception.CandidateAlreadyExist;
+import com.mobytestbackend.exception.TechnologyNotFoundException;
 import com.mobytestbackend.models.entity.Technology;
 import com.mobytestbackend.models.views.TechnologyDto;
 import com.mobytestbackend.repository.TechnologyRepository;
@@ -22,13 +24,22 @@ public class TechnologyServiceImpl implements TechnologyService {
     public Boolean save(TechnologyDto technologyDto) {
         Long id = uploadTechnology(technologyDto).getId();
         return technologyRepository.existsById(id);
+
+    }
+    private Technology uploadTechnology(TechnologyDto technologyDto) {
+        Technology technology = Technology.builder()
+                .description(technologyDto.getDescription())
+                .version(technologyDto.getVersion())
+                .build();
+        return technologyRepository.save(technology);
+
     }
 
     @Override
     public void update(Long id, TechnologyDto technologyDto) {
         Technology technology = technologyRepository.findById(id).get();
-        if (technologyDto.getName() != null && !technologyDto.getName().equals("")) {
-            technology.setName(technologyDto.getName());
+        if (technologyDto.getDescription() != null && !technologyDto.getDescription().equals("")) {
+            technology.setDescription(technologyDto.getDescription());
         }
         if (technologyDto.getVersion() != null && !technologyDto.getVersion().equals("")) {
             technology.setVersion(technologyDto.getVersion());
@@ -37,33 +48,23 @@ public class TechnologyServiceImpl implements TechnologyService {
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public void deleteById(Long id) {
         try {
             technologyRepository.deleteById(id);
-            return true;
         } catch (Exception e) {
             e.getMessage();
-            return false;
+
         }
     }
 
     @Override
-    public Technology findById(Long id) {
+    public Technology findById(Long id) throws TechnologyNotFoundException {
         return technologyRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró la tecnologia - id: " + id));
+                .orElseThrow(() -> new TechnologyNotFoundException("Technology not found - id: " + id));
     }
 
     @Override
     public List<Technology> findAll() {
         return technologyRepository.findAll();
-    }
-
-    private Technology uploadTechnology(TechnologyDto technologyDto) {
-        Technology technology = Technology.builder()
-                .name(technologyDto.getName())
-                .version(technologyDto.getVersion())
-                .build();
-        return technologyRepository.save(technology);
-
     }
 }

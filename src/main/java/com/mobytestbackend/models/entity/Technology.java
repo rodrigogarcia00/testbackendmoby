@@ -24,8 +24,8 @@ public class Technology {
     @Column(name = "technology_id")
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "description", nullable = false)
+    private String description;
 
     @Column(name = "version", nullable = false)
     private String version;
