@@ -61,9 +61,9 @@ class TechnologyServiceImplTest {
     }
 
     @Test
-    public void findByIdException(){
+    public void findByIdException() {
         Technology technology = Technology.builder().id(1L).description("java").version("8").build();
-        Long technologyId=technology.getId();
+        Long technologyId = technology.getId();
         when(technologyRepository.findById(technology.getId())).thenThrow(TechnologyNotFoundException.class);
         assertThrows(TechnologyNotFoundException.class, () -> technologyServiceImpl.findById(technologyId));
     }

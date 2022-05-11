@@ -30,7 +30,4 @@ public class Technology {
     @Column(name = "version", nullable = false)
     private String version;
 
-    /*@OneToMany(mappedBy = "technology")
-    @JsonBackReference
-    List<CandidateByTechnology> candidateList;*/
 }

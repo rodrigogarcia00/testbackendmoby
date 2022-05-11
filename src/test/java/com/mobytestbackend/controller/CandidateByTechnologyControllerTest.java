@@ -39,17 +39,11 @@ class CandidateByTechnologyControllerTest {
 
     private CandidateByTechnologyDto candidateByTechnologyDto;
 
-    private CandidateByTechnology candidateByTechnology;
-
-    private Technology technology;
-
-    private Candidate candidate;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        }
+    }
 
     @Test
     @Disabled

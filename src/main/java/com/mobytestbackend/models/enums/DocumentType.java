@@ -4,7 +4,7 @@ public enum DocumentType {
     DNI("DNI"),
     LE("LE"),
     LC("LC");
-    private String type;
+    private final String type;
 
     DocumentType(String type) {
         this.type = type;
